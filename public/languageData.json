@@ -1,0 +1,27 @@
+{
+  "javascript": {
+    "name": "JavaScript",
+    "examplePath": "example.js",
+    "code": "console.log(\"hello world\");"
+  },
+  "python": {
+    "name": "Python",
+    "examplePath": "example.py",
+    "code": "import pandas as pd\n\ndf = pd.read_csv(\"mydata.csv\")\n\n\ndef clean_data(df: pd.DataFrame):\n    \"\"\"\n    1. Remove rows with missing values\n    2. Group by column \"A\" and sum the values in column \"B\"\n    \"\"\"\n\n    return df"
+  },
+  "sql": {
+    "name": "SQL",
+    "examplePath": "example.sql",
+    "code": "SELECT FROM users.uid, orders.total, users.created_at\nFROM (\n    SELECT * FROM users\n    LEFT JOIN (\n        SELECT user_id, COUNT(*) AS total\n        FROM orders\n        GROUP BY user_id\n    ) AS orders ON orders.user_id = users.uid\n    WHERE users.created_at > '2018-01-01' and orders.total > 10\n)\nORDER BY users.created_at DESC"
+  },
+  "r": {
+    "name": "R",
+    "examplePath": "example.r",
+    "code": "library(ggplot2)\n\ndiamonds |>\n    ggplot(aes(x = carat, y = price, fill = cut)) +\n    geom_point() +\n    theme(legend.positino = \"top\")"
+  },
+  "go": {
+    "name": "Go",
+    "examplePath": "example.go",
+    "code": "package main\n\nimport \"fmt\"\n\nfunc main() {\n\tfmt.Println(\"Hello, World!\")\n}"
+  }
+}
