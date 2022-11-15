@@ -16,6 +16,7 @@ import { StreamLanguage } from "@codemirror/language"
 
 
 const codeStore = useCodeStore()
+const editor = ref(null)
 const activeCode = ref(codeStore.activeCode)
 const { activeLanguage } = storeToRefs(codeStore)
 
@@ -40,8 +41,8 @@ const extensions = computed(() => {
 })
 
 
-
 const handleReady = ({ view, state }: { view: EditorView, state: EditorState }) => {
+    codeStore.setView(view)
 }
 
 const handleChange = () => {
@@ -50,7 +51,7 @@ const handleChange = () => {
 </script>
 
 <template>
-    <Codemirror :extensions="extensions" @ready="handleReady" @change="handleChange" :autofocus="true"
+    <Codemirror :extensions="extensions" @ready="handleReady" @change="handleChange" :autofocus="true" ref="editor"
         v-model="activeCode">
     </Codemirror>
 </template>

@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import languageData from "../../public/languageData.json";
 import { LanguageData } from "../types/language";
+import { EditorView } from "@codemirror/view";
 
 const languages = languageData as Record<string, LanguageData>;
 
@@ -8,6 +9,7 @@ export const useCodeStore = defineStore("code", {
 	state: () => {
 		return {
 			languages,
+			view: null as EditorView | null,
 			activeLanguage: languages["javascript"],
 		};
 	},
@@ -22,10 +24,18 @@ export const useCodeStore = defineStore("code", {
 		setActiveLanguage(language: string) {
 			this.activeLanguage =
 				this.languages[language] || this.languages["javascript"];
+
+			if (this.view !== null) {
+				this.view.focus();
+			}
 		},
 
 		saveCode(code: string) {
 			this.activeLanguage.code = code;
+		},
+
+		setView(view: EditorView) {
+			this.view = view;
 		},
 	},
 });

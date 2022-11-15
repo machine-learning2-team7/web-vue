@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { Command, ICommand } from "../types/command";
+import { ref } from "vue";
 
 let id = 1;
 
@@ -44,8 +45,7 @@ export const useCommandStore = defineStore("CommandPalette", {
 			if (activeCommand.command) {
 				activeCommand.command();
 			}
-			this.sortCommands();
-			this.activeIdx = this.commandList.indexOf(activeCommand);
+			this.activeIdx = 0;
 			this.commandPaletteVisible = false;
 			this.commandFilterText = "";
 		},
