@@ -22,16 +22,14 @@ export const useCodeStore = defineStore("code", {
 
 	actions: {
 		setActiveLanguage(language: string) {
-			this.activeLanguage =
-				this.languages[language] || this.languages["javascript"];
-
+			this.activeLanguage = this.languages[language];
 			if (this.view !== null) {
 				this.view.focus();
 			}
 		},
 
 		saveCode(code: string) {
-			this.activeLanguage.code = code;
+			this.activeLanguage.code = code.trim();
 		},
 
 		setView(view: EditorView) {

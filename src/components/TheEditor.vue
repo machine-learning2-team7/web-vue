@@ -7,7 +7,7 @@ import { oneDark } from '@codemirror/theme-one-dark'
 import { EditorState } from '@codemirror/state'
 import { useCodeStore } from '../stores/code';
 import { storeToRefs } from 'pinia';
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watch, nextTick } from 'vue';
 import { EditorView } from "@codemirror/view"
 import { vim } from "@replit/codemirror-vim"
 import { go } from "@codemirror/legacy-modes/mode/go"
@@ -17,6 +17,7 @@ import { StreamLanguage } from "@codemirror/language"
 
 const codeStore = useCodeStore()
 const editor = ref(null)
+// use a separate ref to make activeCode writable for binding to v-model
 const activeCode = ref(codeStore.activeCode)
 const { activeLanguage } = storeToRefs(codeStore)
 
@@ -45,7 +46,7 @@ const handleReady = ({ view, state }: { view: EditorView, state: EditorState }) 
     codeStore.setView(view)
 }
 
-const handleChange = () => {
+const handleChange = async () => {
     codeStore.saveCode(activeCode.value)
 }
 </script>

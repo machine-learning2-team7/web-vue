@@ -2,7 +2,7 @@
   "javascript": {
     "name": "JavaScript",
     "examplePath": "example.js",
-    "code": "console.log(\"hello world\");"
+    "code": "// show alert\nalert(\"Hello World!\");\n\n// read file\nconst readFile = async () => {\n\t[fileHandle] = await window.showOpenFilePicker();\n\n\tif (fileHandle.kind === \"file\") {\n\t\tconst file = filehandle.getFile();\n\t} else if (fileHandle.kind === \"directory\") {\n\t\t// run directory code\n\t}\n};"
   },
   "python": {
     "name": "Python",

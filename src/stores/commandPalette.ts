@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import { Command, ICommand } from "../types/command";
-import { ref } from "vue";
 
 let id = 1;
 
