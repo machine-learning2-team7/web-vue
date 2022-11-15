@@ -24,10 +24,8 @@ const codeStore = useCodeStore();
           }}</a>
       </div>
 
-      <div class="editor-wrapper mt-10">
-        <TheEditor></TheEditor>
-      </div>
-      <section class="description-pane mt-10">
+      <TheEditor></TheEditor>
+      <section class="description-pane mt-5">
         <TheDescription></TheDescription>
       </section>
     </section>

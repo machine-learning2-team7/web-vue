@@ -10,7 +10,7 @@ const { setActiveLanguage } = useCodeStore()
 
 commandStore.registerCommands([
     {
-        title: "Switch to Javascript",
+        title: "Switch to JavaScript",
         command: () => setActiveLanguage("javascript"),
     },
     {

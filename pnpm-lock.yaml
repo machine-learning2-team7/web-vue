@@ -13,12 +13,15 @@ specifiers:
   '@types/node': ^18.11.9
   '@vitejs/plugin-vue': ^3.2.0
   '@vueuse/core': ^9.5.0
+  '@vueuse/rxjs': ^9.5.0
   autoprefixer: ^10.4.13
   codemirror: ^6.0.1
   codemirror-lang-r: 0.1.0-2
   daisyui: ^2.39.1
   pinia: ^2.0.23
   postcss: ^8.4.19
+  rxjs: ^7.5.7
+  sass: ^1.56.1
   tailwindcss: ^3.2.4
   tsx: ^3.12.1
   typescript: ^4.6.4
@@ -38,10 +41,12 @@ dependencies:
   '@codemirror/view': 6.5.0
   '@replit/codemirror-vim': 6.0.3_z6entcb2ok36jr47b3aziuswki
   '@vueuse/core': 9.5.0_vue@3.2.45
+  '@vueuse/rxjs': 9.5.0_rxjs@7.5.7+vue@3.2.45
   codemirror: 6.0.1
   codemirror-lang-r: 0.1.0-2
   daisyui: 2.39.1_2lwn2upnx27dqeg6hqdu7sq75m
   pinia: 2.0.23_zwu2zepfy3m6u2gunxlolp35gi
+  rxjs: 7.5.7
   vue: 3.2.45
   vue-codemirror: 6.1.1_vhikcdkubtgbuxk47tdob2ofvi
 
@@ -50,10 +55,11 @@ devDependencies:
   '@vitejs/plugin-vue': 3.2.0_vite@3.2.3+vue@3.2.45
   autoprefixer: 10.4.13_postcss@8.4.19
   postcss: 8.4.19
+  sass: 1.56.1
   tailwindcss: 3.2.4_postcss@8.4.19
   tsx: 3.12.1
   typescript: 4.8.4
-  vite: 3.2.3_@types+node@18.11.9
+  vite: 3.2.3_ajklay5k626t46b6fyghkbup3i
   vue-tsc: 1.0.9_typescript@4.8.4
 
 packages:
@@ -304,7 +310,7 @@ packages:
       vite: ^3.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 3.2.3_@types+node@18.11.9
+      vite: 3.2.3_ajklay5k626t46b6fyghkbup3i
       vue: 3.2.45
     dev: true
 
@@ -439,6 +445,19 @@ packages:
 
   /@vueuse/metadata/9.5.0:
     resolution: {integrity: sha512-4M1AyPZmIv41pym+K5+4wup3bKuYebbH8w8BROY1hmT7rIwcyS4tEL+UsGz0Hiu1FCOxcoBrwtAizc0YmBJjyQ==}
+    dev: false
+
+  /@vueuse/rxjs/9.5.0_rxjs@7.5.7+vue@3.2.45:
+    resolution: {integrity: sha512-1dXN5c8hsT4XekYKZb1WIz2W06jJV5Wz30clqzzpSwumaKi/oLW+EUHocXj5v2Ow5A6p78+8xCcmekKgu/UtRg==}
+    peerDependencies:
+      rxjs: '>=6.0.0'
+    dependencies:
+      '@vueuse/shared': 9.5.0_vue@3.2.45
+      rxjs: 7.5.7
+      vue-demi: 0.13.11_vue@3.2.45
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
     dev: false
 
   /@vueuse/shared/9.5.0_vue@3.2.45:
@@ -932,6 +951,10 @@ packages:
     hasBin: true
     dev: true
 
+  /immutable/4.1.0:
+    resolution: {integrity: sha512-oNkuqVTA8jqG1Q6c+UglTOD1xhC1BtjKI7XkCXRkZHrN5m18/XsnUp8Q89GkQO/z+0WjonSvl0FLhDYftp46nQ==}
+    dev: true
+
   /is-arrayish/0.3.2:
     resolution: {integrity: sha512-eVRqCvVlZbuw3GrM63ovNSNAeA1K16kaR/LRY/92w0zxQ5/1YzwblUX652i4Xs9RwAGjW9d9y6X88t8OaAJfWQ==}
     dev: false
@@ -1160,6 +1183,22 @@ packages:
     dependencies:
       queue-microtask: 1.2.3
 
+  /rxjs/7.5.7:
+    resolution: {integrity: sha512-z9MzKh/UcOqB3i20H6rtrlaE/CgjLOvheWK/9ILrbhROGTweAi1BaFsTT9FbwZi5Trr1qNRs+MXkhmR06awzQA==}
+    dependencies:
+      tslib: 2.4.1
+    dev: false
+
+  /sass/1.56.1:
+    resolution: {integrity: sha512-VpEyKpyBPCxE7qGDtOcdJ6fFbcpOM+Emu7uZLxVrkX8KVU/Dp5UF7WLvzqRuUhB6mqqQt1xffLoG+AndxTZrCQ==}
+    engines: {node: '>=12.0.0'}
+    hasBin: true
+    dependencies:
+      chokidar: 3.5.3
+      immutable: 4.1.0
+      source-map-js: 1.0.2
+    dev: true
+
   /simple-swizzle/0.2.2:
     resolution: {integrity: sha512-JA//kQgZtbuY83m+xT+tXJkmJncGMTFT+C+g2h2R9uxkYIrE2yy9sgmcLhCnw57/WSD+Eh3J97FPEDFnbXnDUg==}
     dependencies:
@@ -1235,6 +1274,10 @@ packages:
     dependencies:
       is-number: 7.0.0
 
+  /tslib/2.4.1:
+    resolution: {integrity: sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==}
+    dev: false
+
   /tsx/3.12.1:
     resolution: {integrity: sha512-Rcg1x+rNe7qwlP8j7kx4VjP/pJo/V57k+17hlrn6a7FuQLNwkaw5W4JF75tYornNVCxkXdSUnqlIT8JY/ttvIw==}
     hasBin: true
@@ -1264,7 +1307,7 @@ packages:
   /util-deprecate/1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
-  /vite/3.2.3_@types+node@18.11.9:
+  /vite/3.2.3_ajklay5k626t46b6fyghkbup3i:
     resolution: {integrity: sha512-h8jl1TZ76eGs3o2dIBSsvXDLb1m/Ec1iej8ZMdz+PsaFUsftZeWe2CZOI3qogEsMNaywc17gu0q6cQDzh/weCQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -1294,6 +1337,7 @@ packages:
       postcss: 8.4.19
       resolve: 1.22.1
       rollup: 2.79.1
+      sass: 1.56.1
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
