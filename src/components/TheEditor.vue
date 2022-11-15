@@ -6,6 +6,7 @@ import { sql } from '@codemirror/lang-sql'
 import { oneDark } from '@codemirror/theme-one-dark'
 import { EditorState } from '@codemirror/state'
 import { useCodeStore } from '../stores/code';
+import { useConfigStore } from '../stores/config';
 import { storeToRefs } from 'pinia';
 import { computed, ref, watch } from 'vue';
 import { EditorView } from "@codemirror/view"
@@ -20,6 +21,7 @@ import { switchMap, debounceTime, tap } from 'rxjs/operators'
 import Spinner from "./Spinner.vue"
 
 const codeStore = useCodeStore()
+const configStore = useConfigStore()
 const loading = ref(false)
 const editor = ref(null)
 // use a separate ref to make activeCode writable for binding to v-model
@@ -64,10 +66,13 @@ const languageExtensions: Record<string, any> = {
     "go": StreamLanguage.define(go)
 }
 const extensions = computed(() => {
-    const result = [vim(), oneDark]
+    const result = [oneDark]
     const lang = activeLanguage.value.name.toLowerCase()
     if (lang in languageExtensions) {
         result.push(languageExtensions[lang])
+    }
+    if (configStore.editor.vimMode) {
+        result.push(vim())
     }
     return result
 })
@@ -85,13 +90,27 @@ const handleChange = async () => {
 
 <template>
 
-    <div class="editor-wrapper relative">
-        <Codemirror :extensions="extensions" @ready="handleReady" @change="handleChange" :autofocus="true" ref="editor"
-            v-model="activeCode">
-        </Codemirror>
-        <div class="absolute bottom-4 right-4">
-            <Spinner :loading="loading"></Spinner>
+    <div class="editor-wrapper">
+        <div class="relative">
+            <Codemirror :extensions="extensions" @ready="handleReady" @change="handleChange" :autofocus="true"
+                ref="editor" v-model="activeCode">
+            </Codemirror>
+            <div class="absolute bottom-4 right-4">
+                <Spinner :loading="true"></Spinner>
+            </div>
         </div>
-
+        <div class="flex justify-end mt-2">
+            <div class="form-control w-32 ">
+                <label class="cursor-pointer label">
+                    <span class="label-text">vim mode</span>
+                    <input type="checkbox" class="toggle toggle-info" :value="configStore.editor.vimMode"
+                        @change="configStore.setEditorConfig({ vimMode: !configStore.editor.vimMode })" />
+                </label>
+            </div>
+        </div>
     </div>
 </template>
+
+<style>
+
+</style>
