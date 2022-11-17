@@ -1,5 +1,5 @@
 <template>
-    <h2 class="text-xl font-bold underline mb-5">About</h2>
+    <h2 class="text-xl font-bold underline my-5">About</h2>
     <p>This is a demonstration of using some model to predict ...</p>
     <h3 class="font-bold my-5">Shortcuts</h3>
     <ul class="list-inside">

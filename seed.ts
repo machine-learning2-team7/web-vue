@@ -40,5 +40,5 @@ for (const lang in languages) {
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const outputFile = `${__dirname}/public/languageData.json`;
+const outputFile = `${__dirname}/src/languageData.json`;
 writeFileSync(outputFile, JSON.stringify(languages, null, 2));

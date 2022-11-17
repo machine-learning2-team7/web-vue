@@ -1,8 +1,10 @@
 import { defineStore } from "pinia";
+import { useStorage } from "@vueuse/core";
+
 import { EditorConfig } from "../types/config";
 export const useConfigStore = defineStore("config", {
 	state: () => ({
-		editor: { vimMode: false } as EditorConfig,
+		editor: useStorage("editor-config", { vimMode: false } as EditorConfig),
 	}),
 
 	actions: {

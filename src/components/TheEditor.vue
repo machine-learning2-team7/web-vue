@@ -15,8 +15,8 @@ import { go } from "@codemirror/legacy-modes/mode/go"
 import { r } from "@codemirror/legacy-modes/mode/r"
 import { StreamLanguage } from "@codemirror/language"
 import { useObservable } from '@vueuse/rxjs'
-import { Subject } from "rxjs"
-import { switchMap, debounceTime, tap } from 'rxjs/operators'
+import { Subject, NEVER, merge, BehaviorSubject, Observable } from "rxjs"
+import { switchMap, debounceTime, tap, startWith, mergeWith } from 'rxjs/operators'
 import { fetchPrediction } from "../utils"
 import Spinner from "./Spinner.vue"
 
@@ -29,21 +29,29 @@ const activeCode = ref(codeStore.activeCode)
 const { activeLanguage } = storeToRefs(codeStore)
 
 
-const text$ = new Subject<string>()
+const text$ = new BehaviorSubject<string>(activeCode.value)
+const tab$ = new BehaviorSubject<boolean>(true)
 const suggestions = useObservable(
     text$.pipe(
-        tap(() => loading.value = false),
+        mergeWith(tab$),
         debounceTime(1000),
-        switchMap((text) => {
-            loading.value = true
-            return fetchPrediction({ lang: activeLanguage.value.name, text })
+        switchMap(value => {
+            if (typeof value === "boolean") {
+                // if the user change to another tab when the previous request is still pending, cancel it
+                loading.value = false
+                return NEVER
+            } else {
+                loading.value = true
+                return fetchPrediction({ lang: activeLanguage.value.name, text: value })
+            }
         }),
-        tap((value) => {
+        tap((pred) => {
+            activeCode.value = pred
             loading.value = false
-            activeCode.value = value
         })
     )
 )
+
 
 watch(activeLanguage, () => {
     activeCode.value = codeStore.activeCode
@@ -68,6 +76,10 @@ const extensions = computed(() => {
     return result
 })
 
+const switchLanguage = (lang: string) => {
+    tab$.next(true)
+    codeStore.setActiveLanguage(lang)
+}
 
 const handleReady = ({ view, state }: { view: EditorView, state: EditorState }) => {
     codeStore.setView(view)
@@ -79,7 +91,16 @@ const handleChange = async () => {
 }
 </script>
 
+
 <template>
+
+    <div class="tabs tabs-boxed flex justify-center gap-10">
+        <a class="tab" v-for="lang in Object.keys(codeStore.languages)" :key="lang" @click="switchLanguage(lang)"
+            :class="{ 'tab-active': lang.toLowerCase() === codeStore.activeLanguage.name.toLowerCase() }">{{
+                    codeStore.languages[lang].name
+            }}</a>
+    </div>
+
 
     <div class="editor-wrapper">
         <div class="relative">
@@ -94,7 +115,7 @@ const handleChange = async () => {
             <div class="form-control w-32 ">
                 <label class="cursor-pointer label">
                     <span class="label-text">vim mode</span>
-                    <input type="checkbox" class="toggle toggle-info" :value="configStore.editor.vimMode"
+                    <input type="checkbox" class="toggle toggle-info" :checked="configStore.editor.vimMode"
                         @change="configStore.setEditorConfig({ vimMode: !configStore.editor.vimMode })" />
                 </label>
             </div>

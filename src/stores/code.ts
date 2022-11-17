@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import languageData from "../../public/languageData.json";
+import languageData from "../languageData.json";
 import { LanguageData } from "../types/language";
 import { EditorView } from "@codemirror/view";
 

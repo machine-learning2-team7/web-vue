@@ -1,5 +1,8 @@
+import { BehaviorSubject } from "rxjs";
 import { fromFetch } from "rxjs/fetch";
 import { switchMap } from "rxjs/operators";
+import { useCodeStore } from "./stores/code";
+const { setActiveLanguage } = useCodeStore();
 
 export interface Input {
 	lang: string;
