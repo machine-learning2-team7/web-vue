@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useCodeStore } from './stores/code';
-import { watch } from "vue"
-import { storeToRefs } from 'pinia';
 import TheEditor from './components/TheEditor.vue';
 import TheCommandPalette from './components/TheCommandPalette.vue';
 import TheDescription from './components/TheDescription.vue';
