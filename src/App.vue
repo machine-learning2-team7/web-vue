@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useCodeStore } from './stores/code';
 import TheEditor from './components/TheEditor.vue';
 import TheCommandPalette from './components/TheCommandPalette.vue';
 import TheDescription from './components/TheDescription.vue';
@@ -9,10 +8,8 @@ import TheDescription from './components/TheDescription.vue';
 
 <template>
   <main>
-
     <TheEditor></TheEditor>
     <TheDescription></TheDescription>
-
   </main>
 
   <Teleport to="body">
